@@ -75,6 +75,13 @@ public class Bookshop {
                 .collect(Collectors.toList());
     }
 
+    public Book getBooksByTitle(String title) throws IOException {
+        return getBooks().stream()
+                .filter(book -> book.getTitle().equalsIgnoreCase(title))
+                .findFirst() 
+                .orElseThrow(() -> new IllegalArgumentException("Book not found")); 
+    }
+
     public List<Book> searchBooksByTitle(List<Book> books, String searchText) {
         return books.stream()
                 .filter(book -> book.getTitle().toLowerCase().contains(searchText))

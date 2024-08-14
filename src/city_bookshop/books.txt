@@ -1,2 +1,11 @@
-Harry Potter,J.K. Rowling,1200.0,Suspense,25
-Harry Potter 2,J.K. Rowling,1300.0,Suspense,25
+Test Book,Test Author,5555.0,Fiction,10
+The Great Gatsby,F. Scott Fitzgerald,3516.8,Classic,15
+To Kill a Mockingbird,Harper Lee,2556.8,Classic,20
+1984,George Orwell,2876.8,Dystopian,12
+The Catcher in the Rye,J.D. Salinger,2236.8,Classic,18
+Pride and Prejudice,Jane Austen,3196.8,Romance,25
+The Hobbit,J.R.R. Tolkien,4156.8,Fantasy,10
+Harry Potter and the Sorcerer’s Stone,J.K. Rowling,4796.8,Fantasy,30
+The Da Vinci Code,Dan Brown,3836.8,Thriller,22
+The Alchemist,Paulo Coelho,3196.8,Fiction,17
+The Girl with the Dragon Tattoo,Stieg Larsson,4476.8,Thriller,14
