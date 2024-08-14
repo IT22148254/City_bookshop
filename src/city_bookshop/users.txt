@@ -1,0 +1,7 @@
+cashier1,password123,Cashier
+manager1,admin123,Manager
+Hello world,123123,Cashier
+manager3,123,Manager
+cashier31,123,Cashier
+manager2,123,Manager
+cashier2,123,Cashier
