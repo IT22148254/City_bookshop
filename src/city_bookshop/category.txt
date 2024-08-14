@@ -8,3 +8,5 @@ Suspense
 Mystery
 Comedy
 Tragedy
+Anime
+Tst

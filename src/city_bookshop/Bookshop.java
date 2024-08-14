@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 
 public class Bookshop {
 
@@ -28,6 +29,12 @@ public class Bookshop {
 
     // Create
     public void addBook(Book book) throws IOException {
+        if (bookExists(book.getTitle())) {
+            throw new IllegalArgumentException("A book with this title already exists.");
+        }
+        if (!isValidCategory(book.getCategory().getName())) {
+            throw new IllegalArgumentException("The category does not exist.");
+        }
         books.add(book);
         saveToFile();
     }
@@ -43,6 +50,9 @@ public class Bookshop {
         loadFromFile();
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getTitle().equalsIgnoreCase(title)) {
+                if (!isValidCategory(updatedBook.getCategory().getName())) {
+                    throw new IllegalArgumentException("The category does not exist.");
+                }
                 books.set(i, updatedBook);
                 saveToFile();
                 return;
@@ -78,8 +88,8 @@ public class Bookshop {
     public Book getBooksByTitle(String title) throws IOException {
         return getBooks().stream()
                 .filter(book -> book.getTitle().equalsIgnoreCase(title))
-                .findFirst() 
-                .orElseThrow(() -> new IllegalArgumentException("Book not found")); 
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
     }
 
     public List<Book> searchBooksByTitle(List<Book> books, String searchText) {
@@ -100,31 +110,28 @@ public class Bookshop {
 
     public static void main(String[] args) throws IOException {
 //        Bookshop bk = new Bookshop();
-//        Category c1 = new Category("Suspense");
-//        Book book1 = new Book("Harry Potter", "J.K. Rowling", 1200.00, c1, 25);
+//        Category c1 = new Category("Fiction");
+//        Book book1 = new Book("Test Book", "J.K. Rowling", 1200.00, c1, 25);
 
         // Adding Categories
-        Category.addCategory(new Category("Fiction"));
-        Category.addCategory(new Category("Non-Fiction"));
-
+//        Category.addCategory(new Category("Fiction"));
+//        Category.addCategory(new Category("Non-Fiction"));
         // Reading and displaying all Categories
-        List<Category> categories = Category.getAllCategories();
-        for (Category category : categories) {
-            System.out.println(category.getName());
-        }
-
-        // Updating a Category
-        Category.updateCategory("Fiction", "Science Fiction");
-
-        // Deleting a Category
-        Category.deleteCategory("Non-Fiction");
-
-        // Display all categories after update and delete
-        categories = Category.getAllCategories();
-        for (Category category : categories) {
-            System.out.println(category.getName());
-        }
-
+//        List<Category> categories = Category.getAllCategories();
+//        for (Category category : categories) {
+//            System.out.println(category.getName());
+//        }
+//        // Updating a Category
+//        Category.updateCategory("Fiction", "Science Fiction");
+//
+//        // Deleting a Category
+//        Category.deleteCategory("Non-Fiction");
+//
+//        // Display all categories after update and delete
+//        categories = Category.getAllCategories();
+//        for (Category category : categories) {
+//            System.out.println(category.getName());
+//        }
         //bk.addBook(book1);
     }
 
@@ -146,4 +153,26 @@ public class Bookshop {
             }
         }
     }
+
+    private boolean bookExists(String title) throws IOException {
+        return getBooks().stream()
+                .anyMatch(book -> book.getTitle().equalsIgnoreCase(title));
+    }
+
+    private List<String> loadCategories() throws IOException {
+        List<String> categories = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/city_bookshop/category.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                categories.add(line.trim());
+            }
+        }
+        return categories;
+    }
+
+    private boolean isValidCategory(String categoryName) throws IOException {
+        List<String> categories = loadCategories();
+        return categories.contains(categoryName);
+    }
+
 }

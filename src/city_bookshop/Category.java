@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package city_bookshop;
 
-/**
- *
- * @author HP
- */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -19,17 +11,12 @@ import java.util.List;
 public class Category {
 
     private String name;
-//    private List<Book> books;
     static final String FILE_PATH_CG = "src/city_bookshop/category.txt";
 
     public Category(String name) {
         this.name = name;
-//        this.books = new ArrayList<>();
     }
 
-//    public void addBook(Book book) {
-//        books.add(book);
-//    }
     public String getName() {
         return name;
     }
@@ -38,17 +25,30 @@ public class Category {
         this.name = name;
     }
 
-//    public List<Book> getBooks() {
-//        return books;
-//    }
     // Create or Add a new Category
     public static void addCategory(Category category) {
+        if (isCategoryExists(category.getName())) {
+            System.out.println("Category already exists: " + category.getName());
+            return;
+        }
+        
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_CG, true))) {
             writer.write(category.getName());
             writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Check if a Category exists
+    public static boolean isCategoryExists(String categoryName) {
+        List<Category> categories = getAllCategories();
+        for (Category category : categories) {
+            if (category.getName().equalsIgnoreCase(categoryName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Read all Categories
@@ -67,6 +67,11 @@ public class Category {
 
     // Update a Category (rename it)
     public static void updateCategory(String oldName, String newName) {
+        if (!isCategoryExists(oldName)) {
+            System.out.println("Category not found: " + oldName);
+            return;
+        }
+
         List<Category> categories = getAllCategories();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_CG))) {
             for (Category category : categories) {
@@ -83,6 +88,11 @@ public class Category {
 
     // Delete a Category
     public static void deleteCategory(String name) {
+        if (!isCategoryExists(name)) {
+            System.out.println("Category not found: " + name);
+            return;
+        }
+
         List<Category> categories = getAllCategories();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH_CG))) {
             for (Category category : categories) {

@@ -4,6 +4,7 @@
  */
 package city_bookshop;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,8 +25,10 @@ public class books_pg extends javax.swing.JFrame {
      * Creates new form books_pg
      */
     protected Bookshop bs = new Bookshop();
+    private String role;
 
-    public books_pg() throws IOException {
+    public books_pg(String role) throws IOException {
+        this.role = role;
         initComponents();
 
         // Populate category dropdowns
@@ -75,8 +78,43 @@ public class books_pg extends javax.swing.JFrame {
             }
         });
 
-        // Add right-click context menu to the table rows
-        jTable1.setComponentPopupMenu(createContextMenu());
+        if (this.role != null) {
+            if (this.role.equalsIgnoreCase("Manager")) {
+                // Add right-click context menu to the table rows
+                jTable1.setComponentPopupMenu(createContextMenu());
+
+                jButton4.setVisible(true);
+                jButton3.setVisible(true);
+            }
+
+            if (!this.role.equalsIgnoreCase("Manager")) {
+
+                jButton4.setVisible(false);
+                jButton3.setVisible(false);
+            }
+        }
+
+        jButton4.addActionListener((e) -> {
+
+            AddBookDialog dialogAd = new AddBookDialog(this, bs);
+            dialogAd.setVisible(true);
+            try {
+                updateTable(bs.getBooks());
+            } catch (IOException ex) {
+                Logger.getLogger(books_pg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+
+        jButton3.addActionListener((ActionEvent e) -> {
+            AddCategoryDialog addCategoryDialog = new AddCategoryDialog(books_pg.this);
+            addCategoryDialog.setVisible(true);
+            try {
+                populateCategoryDropdowns();
+            } catch (IOException ex) {
+                Logger.getLogger(books_pg.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
     }
 
@@ -214,7 +252,7 @@ public class books_pg extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             try {
-                new books_pg().setVisible(true);
+                new books_pg("Manager").setVisible(true);
             } catch (IOException ex) {
                 Logger.getLogger(books_pg.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -246,7 +284,7 @@ public class books_pg extends javax.swing.JFrame {
 
     }
 
-    private void populateCategoryDropdowns() throws IOException {
+    public void populateCategoryDropdowns() throws IOException {
         List<Category> categories = Category.getAllCategories();
         DefaultComboBoxModel<String> categoryModel1 = new DefaultComboBoxModel<>();
 

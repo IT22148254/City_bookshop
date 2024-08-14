@@ -9,3 +9,4 @@ Harry Potter and the Sorcerer’s Stone,J.K. Rowling,4796.8,Fantasy,30
 The Da Vinci Code,Dan Brown,3836.8,Thriller,22
 The Alchemist,Paulo Coelho,3196.8,Fiction,17
 The Girl with the Dragon Tattoo,Stieg Larsson,4476.8,Thriller,14
+Test book 1,Test auther,222.0,Fiction,23
