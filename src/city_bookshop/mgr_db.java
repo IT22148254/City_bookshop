@@ -4,10 +4,12 @@
  */
 package city_bookshop;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -22,29 +24,32 @@ public class mgr_db extends javax.swing.JFrame {
     private String un;
     private String pw;
     private String r;
-    
+
     public mgr_db(String un, String pw, String r) {
         this.un = un;
         this.pw = pw;
         this.r = r;
-        
+
         initComponents();
+        setImage();
+
         
+
         jButton1.addActionListener((ActionEvent e) -> {
-            
+
             users_pg upg = new users_pg(this.un, this.pw, this.r);
             upg.setVisible(true);
             upg.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            
+
         });
-        
+
         jButton4.addActionListener((ActionEvent e) -> {
-            
+
             profile prof = new profile(this.un, this.pw, this.r);
             prof.setVisible(true);
             prof.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         });
-        
+
         jButton3.addActionListener((e) -> {
             try {
                 books_pg bpg = new books_pg(this.r);
@@ -53,15 +58,15 @@ public class mgr_db extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(mgr_db.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         });
-        
+
         jButton2.addActionListener((e) -> {
             Category_pg cpg = new Category_pg();
             cpg.setVisible(true);
             cpg.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         });
-        
+
     }
 
     /**
@@ -79,6 +84,7 @@ public class mgr_db extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,11 +116,13 @@ public class mgr_db extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -207,7 +215,17 @@ public class mgr_db extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    private void setImage() {
+        ImageIcon img = new ImageIcon("src/city_bookshop/res/mgrimg (1).jpg");
+        Image image = img.getImage();
+        Image imageScale = image.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scIcon = new ImageIcon(imageScale);
+        jLabel1.setIcon(scIcon);
+        
+    }
 }

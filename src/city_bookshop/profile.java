@@ -4,6 +4,9 @@
  */
 package city_bookshop;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author HP
@@ -26,6 +29,7 @@ public class profile extends javax.swing.JFrame {
         this.r = r;
 
         initComponents();
+        setImage();
         
         setProfileDetails();
         
@@ -58,6 +62,7 @@ public class profile extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,11 +85,11 @@ public class profile extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -181,9 +186,19 @@ public class profile extends javax.swing.JFrame {
         jLabel4.setText(this.r);
     }
     
+    private void setImage() {
+        ImageIcon img = new ImageIcon("src/city_bookshop/res/user.png");
+        Image image = img.getImage();
+        Image imageScale = image.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scIcon = new ImageIcon(imageScale);
+        jLabel1.setIcon(scIcon);
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
